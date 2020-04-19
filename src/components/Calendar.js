@@ -37,32 +37,9 @@ class Calendar extends Component {
     return months[m];
   }
 
-  // onSwipeUp(gestureState) {
-  //   this.setState({ myText: "You swiped up!" });
-  // }
-
-  // onSwipeDown(gestureState) {
-  //   this.setState({ myText: "You swiped down!" });
-  // }
-
-  // onSwipeLeft(gestureState) {
-  //   this.setState({ myText: "You swiped left!" });
-  // }
-
-  // onSwipeRight(gestureState) {
-  //   this.setState({ myText: "You swiped right!" });
-  // }
-  onSwipe(gestureName, gestureState) {
-    const { SWIPE_UP, SWIPE_DOWN, SWIPE_LEFT, SWIPE_RIGHT } = swipeDirections;
-    this.setState({ gestureName: gestureName });
-    switch (gestureName) {
-      case SWIPE_UP:
-        // this.setState({ backgroundColor: "red" });
-        break;
-      case SWIPE_DOWN:
-        // this.setState({ backgroundColor: "green" });
-        break;
-      case SWIPE_LEFT: //Goes to tomorrow
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.gesture != this.props.gesture || prevProps != this.props) {
+      if (this.props.gesture == "SWIPE_LEFT") {
         let tomorrow = new Date(this.state.date);
         tomorrow.setDate(tomorrow.getDate() + 1);
         this.setState({
@@ -71,8 +48,7 @@ class Calendar extends Component {
           month: this.numtoMonth(tomorrow.getMonth()),
           year: tomorrow.getFullYear(),
         });
-        break;
-      case SWIPE_RIGHT: //Goes to yesterday
+      } else if (this.props.gesture == "SWIPE_RIGHT") {
         let yesterday = new Date(this.state.date);
         yesterday.setDate(yesterday.getDate() - 1);
         this.setState({
@@ -81,39 +57,36 @@ class Calendar extends Component {
           month: this.numtoMonth(yesterday.getMonth()),
           year: yesterday.getFullYear(),
         });
-        break;
+      }
     }
   }
   render() {
-    const config = {
-      velocityThreshold: 0.3,
-      directionalOffsetThreshold: 80,
-    };
     const styles = StyleSheet.create({
       title: {
         fontSize: 18,
         fontWeight: "bold",
       },
     });
+
     return (
-      <GestureRecognizer
-        onSwipe={(direction, state) => this.onSwipe(direction, state)}
-        // onSwipeUp={(state) => this.onSwipeUp(state)}
-        // onSwipeDown={(state) => this.onSwipeDown(state)}
-        // onSwipeLeft={(state) => this.onSwipeLeft(state)}
-        // onSwipeRight={(state) => this.onSwipeRight(state)}
-        config={config}
-        style={{
-          flex: 1,
-          backgroundColor: this.state.backgroundColor,
-        }}
-      >
-        <Text>{this.state.myText}</Text>
-        <Text>onSwipe callback received gesture: {this.state.gestureName}</Text>
+      // <GestureRecognizer
+      //   onSwipe={(direction, state) => this.onSwipe(direction, state)}
+      //   // onSwipeUp={(state) => this.onSwipeUp(state)}
+      //   // onSwipeDown={(state) => this.onSwipeDown(state)}
+      //   // onSwipeLeft={(state) => this.onSwipeLeft(state)}
+      //   // onSwipeRight={(state) => this.onSwipeRight(state)}
+      //   config={config}
+      //   style={{
+      //     flex: 1,
+      //   }}
+      // >
+      <View>
+        <Text>onSwipe from main app: {this.props.gesture}</Text>
         <Text style={styles.title}>
           {this.state.month} {this.state.day}, {this.state.year}
         </Text>
-      </GestureRecognizer>
+      </View>
+      // </GestureRecognizer>
     );
   }
 }
