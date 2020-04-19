@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 import GestureRecognizer, {
   swipeDirections,
 } from "react-native-swipe-gestures";
+import Add_Exercise from "./Add_Exercise";
 
 class Calendar extends Component {
   constructor(props) {
@@ -57,7 +58,7 @@ class Calendar extends Component {
           month: this.numtoMonth(yesterday.getMonth()),
           year: yesterday.getFullYear(),
         });
-      }
+      } //Pass back updated date to main app);
     }
   }
   render() {
@@ -85,6 +86,7 @@ class Calendar extends Component {
         <Text style={styles.title}>
           {this.state.month} {this.state.day}, {this.state.year}
         </Text>
+        <Add_Exercise date={this.state.date} />
       </View>
       // </GestureRecognizer>
     );

@@ -6,12 +6,18 @@ import GestureRecognizer, {
 import Calendar from "./src/components/Calendar";
 import Add_Exercise from "./src/components/Add_Exercise";
 
+let currentDateObject;
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       gestureName: "none",
+      currentDateObject: "",
     };
+    this.gotDate = this.gotDate.bind(this);
+  }
+  gotDate(date) {
+    // this.setState({ currentDateObject: date });
   }
   render() {
     const config = {
@@ -26,17 +32,10 @@ class App extends Component {
         justifyContent: "center",
       },
     });
-
     return (
       <View style={styles.container}>
         <GestureRecognizer
           onSwipe={(direction, state) => {
-            const {
-              SWIPE_UP,
-              SWIPE_DOWN,
-              SWIPE_LEFT,
-              SWIPE_RIGHT,
-            } = swipeDirections;
             this.setState({ gestureName: direction });
           }}
           config={config}
@@ -44,8 +43,8 @@ class App extends Component {
             flex: 0.8,
           }}
         >
-          <Calendar gesture={this.state.gestureName} />
-          <Add_Exercise />
+          <Calendar gesture={this.state.gestureName} callBack={this.gotDate} />
+          {/* <Add_Exercise date={currentDateObject} /> */}
         </GestureRecognizer>
       </View>
     );

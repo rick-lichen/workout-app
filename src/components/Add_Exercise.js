@@ -56,6 +56,7 @@ class Add_Exercise extends Component {
                       temp[index].visible = true; //Set visiblitiy of that exercise to be true
                       this.setState({ exercises: temp });
                     }
+                    this.setState({ adding: false });
                   }} //Set temp to be new exercises}
                 />
               );
@@ -65,7 +66,9 @@ class Add_Exercise extends Component {
         {this.state.exercises.map((value, index) => {
           if (value.visible) {
             //render only if visible is true
-            return <Exercise key={index} name={value.name} />;
+            return (
+              <Exercise key={index} name={value.name} date={this.props.date} />
+            );
           }
         })}
       </View>
