@@ -1,8 +1,5 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
-import GestureRecognizer, {
-  swipeDirections,
-} from "react-native-swipe-gestures";
 import Add_Exercise from "./Add_Exercise";
 
 class Calendar extends Component {
@@ -82,7 +79,6 @@ class Calendar extends Component {
       //   }}
       // >
       <View>
-        <Text>onSwipe from main app: {this.props.gesture}</Text>
         <Text style={styles.title}>
           {this.state.month} {this.state.day}, {this.state.year}
         </Text>

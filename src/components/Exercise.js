@@ -39,19 +39,19 @@ class Exercise extends Component {
       // Error saving data
     }
   };
-  _retrieveData = async () => {
-    try {
-      const value = await AsyncStorage.getItem(
-        String(this.state.date.getTime())
-      );
-      if (value !== null) {
-        // We have data!!
-        console.log(value);
-      }
-    } catch (error) {
-      // Error retrieving data
-    }
-  };
+  // _retrieveData = async () => {
+  //   try {
+  //     const value = await AsyncStorage.getItem(
+  //       String(this.state.date.getTime())
+  //     );
+  //     if (value !== null) {
+  //       // We have data!!
+  //       console.log(value);
+  //     }
+  //   } catch (error) {
+  //     // Error retrieving data
+  //   }
+  // };
   componentDidUpdate(prevProps) {
     if (prevProps.date != this.props.date) {
       this.setState({ date: this.props.date }, () => {});
@@ -95,7 +95,7 @@ class Exercise extends Component {
         ) : (
           <Text></Text>
         )}
-        <Button title="Get stored values" onPress={this._retrieveData} />
+        {/* <Button title="Get stored values" onPress={this._retrieveData} /> */}
       </View>
     );
   }

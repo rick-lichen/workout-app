@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import GestureRecognizer, {
-  swipeDirections,
-} from "react-native-swipe-gestures";
+import GestureRecognizer from "react-native-swipe-gestures";
 import Calendar from "./src/components/Calendar";
 import Add_Exercise from "./src/components/Add_Exercise";
 
@@ -14,10 +12,6 @@ class App extends Component {
       gestureName: "none",
       currentDateObject: "",
     };
-    this.gotDate = this.gotDate.bind(this);
-  }
-  gotDate(date) {
-    // this.setState({ currentDateObject: date });
   }
   render() {
     const config = {
@@ -35,7 +29,7 @@ class App extends Component {
     return (
       <View style={styles.container}>
         <GestureRecognizer
-          onSwipe={(direction, state) => {
+          onSwipe={(direction) => {
             this.setState({ gestureName: direction });
           }}
           config={config}
