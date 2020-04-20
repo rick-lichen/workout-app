@@ -1,45 +1,18 @@
-import React, { Component } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import GestureRecognizer from "react-native-swipe-gestures";
-import Calendar from "./src/components/Calendar";
-
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      gestureName: "none",
-    };
+import { createAppContainer } from "react-navigation";
+import { createStackNavigator } from "react-navigation-stack";
+import WorkoutScreen from "./src/screens/WorkoutScreen";
+import HomeScreen from "./src/screens/HomeScreen";
+const navigator = createStackNavigator(
+  {
+    Home: HomeScreen,
+    Workout: WorkoutScreen,
+  },
+  {
+    initialRouteName: "Home",
+    defaultNavigationOptions: {
+      title: "App",
+    },
   }
-  render() {
-    const config = {
-      velocityThreshold: 0.3,
-      directionalOffsetThreshold: 80,
-    };
-    const styles = StyleSheet.create({
-      container: {
-        flex: 1,
-        backgroundColor: "#fff",
-        alignItems: "center",
-        justifyContent: "center",
-      },
-    });
-    return (
-      <View style={styles.container}>
-        <GestureRecognizer
-          onSwipe={(direction) => {
-            this.setState({ gestureName: direction });
-          }}
-          config={config}
-          style={{
-            flex: 0.9,
-            alignSelf: "stretch",
-          }}
-        >
-          <Calendar gesture={this.state.gestureName} callBack={this.gotDate} />
-        </GestureRecognizer>
-      </View>
-    );
-  }
-}
+);
 
-export default App;
+export default createAppContainer(navigator);
