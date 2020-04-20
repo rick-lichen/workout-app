@@ -2,15 +2,12 @@ import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import GestureRecognizer from "react-native-swipe-gestures";
 import Calendar from "./src/components/Calendar";
-import Add_Exercise from "./src/components/Add_Exercise";
 
-let currentDateObject;
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       gestureName: "none",
-      currentDateObject: "",
     };
   }
   render() {
@@ -38,7 +35,6 @@ class App extends Component {
           }}
         >
           <Calendar gesture={this.state.gestureName} callBack={this.gotDate} />
-          {/* <Add_Exercise date={currentDateObject} /> */}
         </GestureRecognizer>
       </View>
     );
