@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet, Button, AsyncStorage } from "react-native";
 import Dialog, { DialogContent, DialogButton } from "react-native-popup-dialog";
 import Exercise from "./Exercise";
 
@@ -9,10 +9,10 @@ class Add_Exercise extends Component {
     this.state = {
       adding: false,
       exercises: [
-        { name: "Push Ups", visible: false },
-        { name: "Sit Ups", visible: false },
-        { name: "Pull Ups", visible: false },
-        { name: "Squats", visible: false },
+        { name: "Push Ups", visible: false, reps: 0 },
+        { name: "Sit Ups", visible: false, reps: 0 },
+        { name: "Pull Ups", visible: false, reps: 0 },
+        { name: "Squats", visible: false, reps: 0 },
       ],
     };
   }
@@ -21,6 +21,43 @@ class Add_Exercise extends Component {
     temp[index].visible = true; //Set visiblitiy of that exercise to be true
     this.setState({ exercises: temp }); //Set temp to be new exercises
   }
+  componentDidUpdate(prevProps) {
+    if (prevProps.date != this.props.date) {
+      this.getCurrentDateData();
+    }
+  }
+  getCurrentDateData = async () => {
+    const existingLog = await AsyncStorage.getItem(
+      String(this.props.date.getTime())
+    );
+    let parsed = JSON.parse(existingLog);
+    if (!parsed) {
+      let temp = this.state.exercises;
+      for (let i = 0; i < temp.length; i++) {
+        //Resetting everything first
+        temp[i].visible = false;
+        temp[i].reps = 0;
+      }
+      this.setState({ exercises: temp });
+    } else {
+      let temp = this.state.exercises;
+      for (let i = 0; i < temp.length; i++) {
+        //Resetting everything first
+        temp[i].visible = false;
+        temp[i].reps = 0;
+      }
+      for (let j = 0; j < temp.length; j++) {
+        for (let i = 0; i < parsed.length; i++) {
+          if (parsed[i][0] == temp[j].name) {
+            //if memory has the exercise
+            temp[j].reps = parsed[i][1];
+            temp[j].visible = true;
+          }
+        }
+      }
+      this.setState({ exercises: temp });
+    }
+  };
   render() {
     const styles = StyleSheet.create({
       title: {
@@ -67,7 +104,12 @@ class Add_Exercise extends Component {
           if (value.visible) {
             //render only if visible is true
             return (
-              <Exercise key={index} name={value.name} date={this.props.date} />
+              <Exercise
+                key={index}
+                name={value.name}
+                date={this.props.date}
+                reps={value.reps}
+              />
             );
           }
         })}

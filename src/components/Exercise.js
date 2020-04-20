@@ -6,7 +6,7 @@ class Exercise extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      reps: 0,
+      reps: this.props.reps,
       edit: false,
       date: this.props.date,
     };
@@ -41,7 +41,6 @@ class Exercise extends Component {
   };
   _retrieveData = async () => {
     try {
-      console.log("retrieving data");
       const value = await AsyncStorage.getItem(
         String(this.state.date.getTime())
       );
@@ -55,9 +54,10 @@ class Exercise extends Component {
   };
   componentDidUpdate(prevProps) {
     if (prevProps.date != this.props.date) {
-      this.setState({ date: this.props.date }, () => {
-        console.log(this.state.date);
-      });
+      this.setState({ date: this.props.date }, () => {});
+    }
+    if (prevProps.reps != this.props.reps) {
+      this.setState({ reps: this.props.reps });
     }
   }
   render() {
