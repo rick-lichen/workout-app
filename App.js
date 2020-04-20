@@ -31,7 +31,8 @@ class App extends Component {
           }}
           config={config}
           style={{
-            flex: 0.8,
+            flex: 0.9,
+            alignSelf: "stretch",
           }}
         >
           <Calendar gesture={this.state.gestureName} callBack={this.gotDate} />
