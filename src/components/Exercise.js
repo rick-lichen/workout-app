@@ -13,12 +13,27 @@ class Exercise extends Component {
   }
   _storeData = async () => {
     this.setState({ edit: false });
+    //Retreive data first
+    const existingLog = await AsyncStorage.getItem(
+      String(this.state.date.getTime())
+    );
+    let newLog = JSON.parse(existingLog);
+    if (!newLog) {
+      newLog = [];
+    } else {
+      for (let i = 0; i < newLog.length; i++) {
+        if (newLog[i][0] == this.props.name) {
+          //If exercise is already stored in there, remove it
+          newLog.splice(i, 1);
+        }
+      }
+    }
+    let exercise_log = [this.props.name, this.state.reps];
+    newLog.push(exercise_log);
     try {
-      let exercise_log = [this.props.name, this.state.reps];
-      console.log("this.state.date = " + this.state.date);
       await AsyncStorage.setItem(
         String(this.state.date.getTime()),
-        JSON.stringify(exercise_log)
+        JSON.stringify(newLog)
       );
     } catch (error) {
       // Error saving data
