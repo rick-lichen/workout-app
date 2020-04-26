@@ -19,7 +19,25 @@ class StatsScreen extends Component {
       try {
         const keys = await AsyncStorage.getAllKeys();
         const result = await AsyncStorage.multiGet(keys);
-        console.log(result);
+        //Summing
+        let sumArray = [];
+        let exerciseArray = [];
+        for (let i = 0; i < result.length; i++) {
+          let parsed = JSON.parse(result[i][1]);
+          for (let j in parsed) {
+            let index = exerciseArray.indexOf(parsed[j][0]);
+            if (index !== -1) {
+              //If exercise already exists in exerciseArray, add the reps to the total count of sumArray
+              sumArray[index][1] =
+                Number(sumArray[index][1]) + Number(parsed[j][1]);
+            } else {
+              //Add exercise to exerciseArray
+              exerciseArray.push(parsed[j][0]);
+              sumArray.push([parsed[j][0], parsed[j][1]]);
+            }
+          }
+        }
+        console.log("sum: " + sumArray);
       } catch (error) {
         console.error(error);
       }
