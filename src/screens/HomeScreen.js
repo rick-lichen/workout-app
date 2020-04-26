@@ -8,6 +8,10 @@ const HomeScreen = (props) => {
         title="Workout!"
         onPress={() => props.navigation.navigate("Workout")}
       />
+      <Button
+        title="Stats!"
+        onPress={() => props.navigation.navigate("Stats")}
+      />
     </View>
   );
 };
