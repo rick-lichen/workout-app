@@ -86,7 +86,7 @@ class Exercise extends Component {
               totalWidth={240}
               totalHeight={50}
               iconSize={25}
-              step={1}
+              step={50}
               valueType="real"
               rounded
               textColor="#B0228C"

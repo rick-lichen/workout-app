@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, AsyncStorage, Button } from "react-native";
 class StatsScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { summaryArray: [], daysWorkedOut: 0 };
   }
 
   render() {
@@ -38,6 +38,7 @@ class StatsScreen extends Component {
           }
         }
         console.log("sum: " + sumArray);
+        this.setState({ summaryArray: sumArray });
       } catch (error) {
         console.error(error);
       }
@@ -51,6 +52,13 @@ class StatsScreen extends Component {
         <Text style={styles.title}> Overall Stats:</Text>
         <Button title="Get Data" onPress={getData} />
         <Button title="Clear All Data" onPress={clearData} />
+        {this.state.summaryArray.map((value, index) => {
+          return (
+            <Text key={index}>
+              {value[0]} : {value[1]}
+            </Text>
+          );
+        })}
       </View>
     );
   }
