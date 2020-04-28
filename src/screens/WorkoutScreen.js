@@ -10,6 +10,13 @@ class WorkoutScreen extends Component {
       gestureName: "none",
     };
   }
+  static navigationOptions = ({ navigation }) => ({
+    title: `${navigation.state.params.title}`,
+    headerTitleStyle: { textAlign: "center", alignSelf: "center" },
+    headerStyle: {
+      backgroundColor: "white",
+    },
+  });
 
   render() {
     const config = {

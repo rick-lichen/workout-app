@@ -91,7 +91,9 @@ class Exercise extends Component {
               totalHeight={50}
               iconSize={25}
               step={50}
-              valueType="real"
+              valueType="integer"
+              minValue={0}
+              maxValue={9999}
               rounded
               textColor="#B0228C"
               iconStyle={{ color: "white" }}

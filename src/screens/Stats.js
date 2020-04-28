@@ -6,6 +6,13 @@ class StatsScreen extends Component {
     super(props);
     this.state = { summaryArray: [], daysWorkedOut: 0 };
   }
+  static navigationOptions = ({ navigation }) => ({
+    title: `${navigation.state.params.title}`,
+    headerTitleStyle: { textAlign: "center", alignSelf: "center" },
+    headerStyle: {
+      backgroundColor: "white",
+    },
+  });
 
   render() {
     const styles = StyleSheet.create({

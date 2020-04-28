@@ -70,10 +70,6 @@ class HomeScreen extends Component {
     return (
       <View>
         <NavigationEvents onWillFocus={() => this.getData()} />
-        <Button
-          title="Stats!"
-          onPress={() => this.props.navigation.navigate("Stats")}
-        />
         <Calendar
           // Initially visible month. Default = Date()
           current={this.state.visible}
@@ -90,6 +86,7 @@ class HomeScreen extends Component {
             this.setState({ tappedDate: dayobj }, () => {
               this.props.navigation.navigate("Workout", {
                 date: this.state.tappedDate,
+                title: "Workout!",
               });
             });
           }}
