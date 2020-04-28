@@ -5,7 +5,7 @@ import Add_Exercise from "./Add_Exercise";
 class Calendar extends Component {
   constructor(props) {
     super(props);
-    let date = new Date();
+    let date = this.props.suppliedDate;
     let d = date.getDate();
     let m = this.numtoMonth(date.getMonth());
     let y = date.getFullYear();

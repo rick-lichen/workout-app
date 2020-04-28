@@ -35,7 +35,11 @@ class WorkoutScreen extends Component {
             alignSelf: "stretch",
           }}
         >
-          <Calendar gesture={this.state.gestureName} callBack={this.gotDate} />
+          <Calendar
+            gesture={this.state.gestureName}
+            callBack={this.gotDate}
+            suppliedDate={this.props.navigation.state.params.date}
+          />
         </GestureRecognizer>
       </View>
     );

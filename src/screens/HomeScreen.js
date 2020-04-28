@@ -15,18 +15,14 @@ let max = new Date(visible.getFullYear(), visible.getMonth() + 1, 0);
 class HomeScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = { visible: visible, min: min, max: max };
+    this.state = { visible: visible, min: min, max: max, tappedDate: "" };
   }
   render() {
     return (
       <View>
         <Button
-          title="Workout!"
-          onPress={() => props.navigation.navigate("Workout")}
-        />
-        <Button
           title="Stats!"
-          onPress={() => props.navigation.navigate("Stats")}
+          onPress={() => this.props.navigation.navigate("Stats")}
         />
         <Calendar
           // Initially visible month. Default = Date()
@@ -38,6 +34,14 @@ class HomeScreen extends Component {
           // Handler which gets executed on day press. Default = undefined
           onDayPress={(day) => {
             console.log("selected day", day);
+            let dayobj = new Date(day.timestamp);
+            dayobj.setDate(dayobj.getDate() + 1);
+            console.log("dayobj = " + dayobj);
+            this.setState({ tappedDate: dayobj }, () => {
+              this.props.navigation.navigate("Workout", {
+                date: this.state.tappedDate,
+              });
+            });
           }}
           // Handler which gets executed on day long press. Default = undefined
           onDayLongPress={(day) => {
