@@ -33,6 +33,8 @@ class HomeScreen extends Component {
     };
   }
   getData = async () => {
+    //clear everything before getting data
+    this.setState({ hasExercise: [] });
     //get all keys
     try {
       const keys = await AsyncStorage.getAllKeys();
