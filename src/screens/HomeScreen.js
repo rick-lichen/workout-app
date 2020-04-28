@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { View, Button, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Button,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  AsyncStorage,
+} from "react-native";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 
 const styles = StyleSheet.create({
@@ -15,8 +22,47 @@ let max = new Date(visible.getFullYear(), visible.getMonth() + 1, 0);
 class HomeScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = { visible: visible, min: min, max: max, tappedDate: "" };
+    this.state = {
+      visible: visible,
+      min: min,
+      max: max,
+      tappedDate: "",
+      hasExercise: [],
+      marked: null,
+    };
   }
+  getData = async () => {
+    //get all keys
+    try {
+      const keys = await AsyncStorage.getAllKeys();
+      // console.log("keys: " + keys);
+      for (let i = 0; i < keys.length; i++) {
+        let separate = keys[i].split("/"); //splits the year month day
+        if (separate[1].length != 2) {
+          //If month is single digit, at a zero in front of it
+          separate[1] = "0" + separate[1];
+        }
+        if (separate[2].length != 2) {
+          //If day is single digit, at a zero in front of it
+          separate[2] = "0" + separate[2];
+        }
+        let together = separate.join("-"); //Join back together with dash
+        this.setState({ hasExercise: [...this.state.hasExercise, together] });
+      }
+      let obj = this.state.hasExercise.reduce(
+        (c, v) => Object.assign(c, { [v]: { marked: true, dotColor: "red" } }),
+        {}
+      );
+      this.setState({ marked: obj }, () => console.log(this.state.marked));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  componentDidMount() {
+    this.getData();
+    //Converts dates with exercises to object
+  }
+
   render() {
     return (
       <View>
@@ -97,6 +143,10 @@ class HomeScreen extends Component {
           disableArrowLeft={false}
           // Disable right arrow. Default = false
           disableArrowRight={false}
+          markedDates={this.state.marked}
+          // {
+          //   "2020-04-18": { marked: true, dotColor: "red", activeOpacity: 0 },
+          // }}
         />
       </View>
     );

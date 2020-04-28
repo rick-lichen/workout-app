@@ -10,6 +10,7 @@ class WorkoutScreen extends Component {
       gestureName: "none",
     };
   }
+
   render() {
     const config = {
       velocityThreshold: 0.3,

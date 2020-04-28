@@ -31,9 +31,11 @@ class Add_Exercise extends Component {
   }
   getCurrentDateData = async () => {
     const existingLog = await AsyncStorage.getItem(
-      String(this.props.date.getDate()) +
-        String(this.props.date.getMonth()) +
-        String(this.props.date.getFullYear())
+      String(this.props.date.getFullYear()) +
+        "/" +
+        String(this.props.date.getMonth() + 1) +
+        "/" +
+        String(this.props.date.getDate())
     );
     let parsed = JSON.parse(existingLog);
     if (!parsed) {

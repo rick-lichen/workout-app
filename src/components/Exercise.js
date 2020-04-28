@@ -15,9 +15,11 @@ class Exercise extends Component {
     this.setState({ edit: false });
     //Retreive data first
     const existingLog = await AsyncStorage.getItem(
-      String(this.state.date.getDate()) +
-        String(this.state.date.getMonth()) +
-        String(this.state.date.getFullYear())
+      String(this.state.date.getFullYear()) +
+        "/" +
+        String(this.state.date.getMonth() + 1) +
+        "/" +
+        String(this.state.date.getDate())
     );
     let newLog = JSON.parse(existingLog);
     if (!newLog) {
@@ -34,9 +36,11 @@ class Exercise extends Component {
     newLog.push(exercise_log);
     try {
       await AsyncStorage.setItem(
-        String(this.state.date.getDate()) +
-          String(this.state.date.getMonth()) +
-          String(this.state.date.getFullYear()),
+        String(this.state.date.getFullYear()) +
+          "/" +
+          String(this.state.date.getMonth() + 1) +
+          "/" +
+          String(this.state.date.getDate()),
         JSON.stringify(newLog)
       );
     } catch (error) {
