@@ -63,6 +63,7 @@ class Calendar extends Component {
       title: {
         fontSize: 18,
         fontWeight: "bold",
+        textAlign: "center",
       },
     });
 

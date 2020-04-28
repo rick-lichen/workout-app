@@ -8,6 +8,7 @@ class StatsScreen extends Component {
   }
   static navigationOptions = ({ navigation }) => ({
     title: `${navigation.state.params.title}`,
+    headerRight: () => null,
     headerTitleStyle: { textAlign: "center", alignSelf: "center" },
     headerStyle: {
       backgroundColor: "white",

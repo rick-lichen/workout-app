@@ -73,10 +73,16 @@ class Exercise extends Component {
       title: {
         fontSize: 18,
         fontWeight: "bold",
+        textAlign: "left",
+        marginLeft: 10,
+      },
+      container: {
+        marginTop: 25,
+        alignItems: "center",
       },
     });
     return (
-      <View>
+      <View style={styles.container}>
         <Text style={styles.title}>
           {this.props.name} : {this.state.reps}
         </Text>
@@ -99,6 +105,7 @@ class Exercise extends Component {
               iconStyle={{ color: "white" }}
               rightButtonBackgroundColor="#EA3788"
               leftButtonBackgroundColor="#E56B70"
+              containerStyle={styles.edit}
             />
             <Button title="Done" onPress={this._storeData} />
           </View>
