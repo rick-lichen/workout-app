@@ -8,6 +8,7 @@ import {
   AsyncStorage,
 } from "react-native";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
+import { NavigationEvents } from "react-navigation";
 
 const styles = StyleSheet.create({
   text: {
@@ -66,6 +67,7 @@ class HomeScreen extends Component {
   render() {
     return (
       <View>
+        <NavigationEvents onWillFocus={() => this.getData()} />
         <Button
           title="Stats!"
           onPress={() => this.props.navigation.navigate("Stats")}
